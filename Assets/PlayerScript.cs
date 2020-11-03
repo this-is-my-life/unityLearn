@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour {
+  private int stage = 0;
   private int jumped = 0;
   private Rigidbody body;
   private Camera mainCamera;
@@ -21,6 +21,8 @@ public class PlayerScript : MonoBehaviour {
       jumped++;
     }
 
+    if (Input.GetKeyDown(KeyCode.R)) respawn();
+
     float horizontalAxis = Input.GetAxis("Horizontal");
     float verticalAxis = Input.GetAxis("Vertical");
     body.velocity = new Vector3(horizontalAxis, body.velocity.y, verticalAxis);
@@ -29,14 +31,31 @@ public class PlayerScript : MonoBehaviour {
   void FixedUpdate () {
     mainCamera.transform.position = new Vector3(body.position.x, body.position.y, -7);
 
-    if (body.position.y < 0) {
-      body.transform.position = new Vector3(0, 4, 0);
-      body.velocity = new Vector3(0, 0, 0);
-    }
+    if (body.position.y < 0) respawn();
+  }
+
+  void respawn () {
+    body.transform.position = new Vector3(0, 4, 0);
+    body.velocity = new Vector3(0, 0, 0);
   }
 
   void OnCollisionEnter (Collision collision) {
-    if (collision.gameObject.name != "grass") return;
-    jumped = 0;
+    switch (collision.gameObject.tag) {
+      case "finish": {
+        stage++;
+        SceneManager.LoadScene(stage);
+        break;
+      }
+
+      case "refuel": {
+        jumped = 0;
+        break;
+      }
+
+      case "killer": {
+        respawn();
+        break;
+      }
+    }
   }
 }
