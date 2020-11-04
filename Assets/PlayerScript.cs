@@ -2,7 +2,6 @@
 using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour {
-  private int stage = 0;
   private int jumped = 0;
   private Rigidbody body;
   private Camera mainCamera;
@@ -42,8 +41,8 @@ public class PlayerScript : MonoBehaviour {
   void OnCollisionEnter (Collision collision) {
     switch (collision.gameObject.tag) {
       case "finish": {
-        stage++;
-        SceneManager.LoadScene(stage);
+        int curr = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(++curr);
         break;
       }
 
