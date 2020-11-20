@@ -1,12 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerScript : MonoBehaviour {
   private int jumped = 0;
   private Rigidbody body;
   private Camera mainCamera;
+  private GameObject deathGUI;
+  private int death = 0;
 
   void Start () {
+    deathGUI = GameObject.Find("Canvas/Death");
     body = GetComponent<Rigidbody>();
     mainCamera = Camera.main;
     mainCamera.enabled = true;
@@ -34,6 +38,8 @@ public class PlayerScript : MonoBehaviour {
   }
 
   void respawn () {
+    death++;
+    deathGUI.GetComponent<TextMeshProUGUI>().SetText("Death: {0}", death);
     body.transform.position = new Vector3(0, 4, 0);
     body.velocity = new Vector3(0, 0, 0);
   }
