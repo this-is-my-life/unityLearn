@@ -1,0 +1,16 @@
+{
+"companyName": "DefaultCompany",
+"productName": "unityLearn",
+"productVersion": "0.1",
+"dataUrl": "unityLearn-build.data.unityweb",
+"wasmCodeUrl": "unityLearn-build.wasm.code.unityweb",
+"wasmFrameworkUrl": "unityLearn-build.wasm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20",
+"cacheControl": {"default": "must-revalidate"},
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.4.34f1"
+}
